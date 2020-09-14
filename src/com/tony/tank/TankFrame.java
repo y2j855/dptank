@@ -9,7 +9,10 @@ import java.awt.event.*;
  * Description:
  */
 public class TankFrame extends Frame {
+    private static final int SPEED = 10;
     int x = 200, y = 200;
+
+    Direction dir = Direction.DOWN;
 
     public TankFrame() {
         setSize(800, 600);
@@ -29,36 +32,82 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        System.out.println("paint");
         g.fillRect(x, y, 50, 50);
-//        x += 10;
+
+        switch (dir) {
+            case LEFT:
+                x -= SPEED;
+                break;
+            case UP:
+                y -= SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+            default:
+                break;
+        }
     }
 
     private class MyKeyListener extends KeyAdapter {
 
+        boolean bL = false;
+        boolean bU = false;
+        boolean bR = false;
+        boolean bD = false;
+
         @Override
         public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
-            switch (keyCode){
+            switch (keyCode) {
                 case KeyEvent.VK_LEFT:
-                    x -= 10;
+                    bL = true;
                     break;
                 case KeyEvent.VK_RIGHT:
-                    x +=10;
+                    bR = true;
                     break;
                 case KeyEvent.VK_UP:
-                    y -=10;
+                    bU = true;
                     break;
                 case KeyEvent.VK_DOWN:
-                    y += 10;
+                    bD = true;
                     break;
                 default:
                     break;
             }
+            setMainTankDir();
+        }
+
+        private void setMainTankDir() {
+            if (bL) dir = Direction.LEFT;
+            if (bU) dir = Direction.UP;
+            if (bR) dir = Direction.RIGHT;
+            if (bD) dir = Direction.DOWN;
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
+            int key = e.getKeyCode();
+            switch (key) {
+                case KeyEvent.VK_LEFT:
+                    bL = false;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    bR = false;
+                    break;
+                case KeyEvent.VK_UP:
+                    bU = false;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    bD = false;
+                    break;
+                default:
+                    break;
+            }
+            setMainTankDir();
         }
     }
 }
