@@ -12,8 +12,8 @@ public class TankFrame extends Frame {
 
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 600;
-    Tank myTank = new Tank(200,200,Direction.DOWN);
-    Bullet bullet = new Bullet(300,300,Direction.DOWN);
+    Tank myTank = new Tank(200,200,Direction.DOWN,this);
+    Bullet bullet = new Bullet(300,300,Direction.DOWN );
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -84,18 +84,6 @@ public class TankFrame extends Frame {
             setMainTankDir();
         }
 
-        private void setMainTankDir() {
-            if(!bL&&!bR&&!bU&&!bD){
-                myTank.setMoving(false);
-            }else{
-                myTank.setMoving(true);
-            }
-            if (bL) myTank.setDir(Direction.LEFT);
-            if (bU) myTank.setDir(Direction.UP);
-            if (bR) myTank.setDir(Direction.RIGHT);
-            if (bD) myTank.setDir(Direction.DOWN);
-        }
-
         @Override
         public void keyReleased(KeyEvent e) {
             int key = e.getKeyCode();
@@ -112,10 +100,25 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     bD = false;
                     break;
+                case KeyEvent.VK_SPACE:
+                    myTank.fire();
+                    break;
                 default:
                     break;
             }
             setMainTankDir();
+        }
+
+        private void setMainTankDir() {
+            if(!bL&&!bR&&!bU&&!bD){
+                myTank.setMoving(false);
+            }else{
+                myTank.setMoving(true);
+            }
+            if (bL) myTank.setDir(Direction.LEFT);
+            if (bU) myTank.setDir(Direction.UP);
+            if (bR) myTank.setDir(Direction.RIGHT);
+            if (bD) myTank.setDir(Direction.DOWN);
         }
     }
 }

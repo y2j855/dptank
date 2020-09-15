@@ -8,8 +8,8 @@ import java.awt.*;
  * Description:
  */
 public class Bullet {
-    private static final int SPEED = 10;
-    private static int WIDTH = 5, HIGHT = 5;
+    private static final int SPEED = 1;
+    private static int WIDTH = 10, HIGHT = 10;
 
     private int x, y;
     private Direction dir;
