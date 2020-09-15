@@ -17,8 +17,9 @@ public class TankFrame extends Frame {
 
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 600;
-    Tank myTank = new Tank(200,200,Direction.DOWN,this);
+    Tank myTank = new Tank(200,500,Direction.DOWN,this);
     List<Bullet> bullets = new ArrayList<>();
+    List<Tank> enemyTanks = new ArrayList<>();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -55,14 +56,12 @@ public class TankFrame extends Frame {
         for (int i = 0; i < bullets.size() ; i++) {
             bullets.get(i).paint(g);
         }
-//        Iterator<Bullet> iter = bullets.iterator();
-//        while (iter.hasNext()){
-//            Bullet bullet = iter.next();
-//            bullet.paint(g);
-//            if(!bullet.isLive){
-//                iter.remove();
-//            }
-//        }
+
+        for (int i = 0; i < enemyTanks.size(); i++) {
+            enemyTanks.get(i).paint(g);
+
+        }
+
     }
 
     //解决双缓冲
