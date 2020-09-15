@@ -9,10 +9,8 @@ import java.awt.event.*;
  * Description:
  */
 public class TankFrame extends Frame {
-    private static final int SPEED = 10;
-    int x = 200, y = 200;
 
-    Direction dir = Direction.DOWN;
+    Tank myTank = new Tank(200,400,Direction.DOWN);
 
     public TankFrame() {
         setSize(800, 600);
@@ -32,24 +30,8 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        g.fillRect(x, y, 50, 50);
+        myTank.paint(g);
 
-        switch (dir) {
-            case LEFT:
-                x -= SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-            default:
-                break;
-        }
     }
 
     private class MyKeyListener extends KeyAdapter {
@@ -82,10 +64,10 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            if (bL) dir = Direction.LEFT;
-            if (bU) dir = Direction.UP;
-            if (bR) dir = Direction.RIGHT;
-            if (bD) dir = Direction.DOWN;
+            if (bL) myTank.setDir(Direction.LEFT);
+            if (bU) myTank.setDir(Direction.UP);
+            if (bR) myTank.setDir(Direction.RIGHT);
+            if (bD) myTank.setDir(Direction.DOWN);
         }
 
         @Override
