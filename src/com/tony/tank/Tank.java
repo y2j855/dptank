@@ -14,6 +14,8 @@ public class Tank {
 
     private boolean moving = false;
 
+    private Group group = Group.GOOD;
+
     /**
      * 根据业务，之所以把画板的类的引用放到tank里边，是应为tank需要打子弹
      * 为什么不用一个返回子弹对象的方法，是因为如果只返回一个子弹对象是可以这么做的，
@@ -30,11 +32,30 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.YELLOW);
         g.fillRect(x, y, 50, 50);
-        g.setColor(c);
+        drawTank(g);
         move();
+    }
+
+    private void drawTank(Graphics g) {
+        switch (dir) {
+            case DOWN:
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankD :
+                        ResourceManager.badTankD, x, y, null);
+                break;
+            case UP:
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankU :
+                        ResourceManager.badTankU, x, y, null);
+                break;
+            case LEFT:
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankL :
+                        ResourceManager.badTankL, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankR :
+                        ResourceManager.badTankR, x, y, null);
+                break;
+        }
     }
 
     private void move() {
