@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         TankFrame tankFrame = new TankFrame();
         for (int i = 0; i < 5; i++) {
-            tankFrame.enemyTanks.add(new Tank(50 + i*80,200,Direction.DOWN,tankFrame));
+            tankFrame.enemyTanks.add(new Tank(50 + i*80,200,Direction.DOWN,Group.BAD,tankFrame));
         }
 
         while (true){

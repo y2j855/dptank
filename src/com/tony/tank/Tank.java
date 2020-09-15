@@ -1,6 +1,7 @@
 package com.tony.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @author: Tony.Chen
@@ -15,8 +16,10 @@ public class Tank {
     public static final int WIDTH = ResourceManager.goodTankD.getWidth();
     public static final int HEIGHT = ResourceManager.goodTankD.getHeight();
 
-    private boolean moving = false;
+    private boolean moving = true;
     private boolean isLive = true;
+
+    private Random random = new Random();
 
     private Group group = Group.GOOD;
 
@@ -28,10 +31,11 @@ public class Tank {
      */
     private TankFrame tf;
 
-    public Tank(int x, int y, Direction dir, TankFrame tf) {
+    public Tank(int x, int y, Direction dir, Group group,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -83,6 +87,7 @@ public class Tank {
                     break;
             }
         }
+        if(random.nextInt(10) > 8) this.fire();
     }
 
     public boolean isMoving() {
@@ -122,5 +127,13 @@ public class Tank {
 
     public void die() {
         this.isLive = false;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

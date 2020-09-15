@@ -17,7 +17,7 @@ public class TankFrame extends Frame {
 
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 600;
-    Tank myTank = new Tank(200,500,Direction.DOWN,this);
+    Tank myTank = new Tank(200,500,Direction.DOWN,Group.GOOD,this);
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> enemyTanks = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class TankFrame extends Frame {
         Color c = g.getColor();
         g.setColor(Color.WHITE);
         g.drawString("子弹数量："+bullets.size(),10,60);
-        g.drawString("坦克数量："+enemyTanks.size(),100,60);
+        g.drawString("敌军坦克数量："+enemyTanks.size(),100,60);
         g.setColor(c);
 
         myTank.paint(g);

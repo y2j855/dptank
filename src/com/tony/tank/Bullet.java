@@ -75,6 +75,9 @@ public class Bullet {
     }
 
     public void collideWith(Tank tank) {
+        if(this.group == tank.getGroup()) return;
+
+        //TODO:用一个rect来记录子弹的位置，现在是每次都会创建Rectangle对象，对象创建太多了。
         Rectangle rect = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
         Rectangle rectTank = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
         if(rect.intersects(rectTank)){
