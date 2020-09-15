@@ -10,11 +10,13 @@ import java.awt.event.*;
  */
 public class TankFrame extends Frame {
 
+    public static final int GAME_WIDTH = 800;
+    public static final int GAME_HEIGHT = 600;
     Tank myTank = new Tank(200,200,Direction.DOWN);
     Bullet bullet = new Bullet(300,300,Direction.DOWN);
 
     public TankFrame() {
-        setSize(800, 600);
+        setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("tank war");
         setVisible(true);
@@ -34,6 +36,24 @@ public class TankFrame extends Frame {
         myTank.paint(g);
         bullet.paint(g);
     }
+
+    //解决双缓冲
+    Image offScreenImage = null;
+
+    @Override
+    public void update(Graphics g) {
+        if (null == offScreenImage) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage, 0, 0, null);
+    }
+    //
 
     private class MyKeyListener extends KeyAdapter {
 
