@@ -28,14 +28,28 @@ public class Bullet {
         if(!isLive){
             tf.bullets.remove(this);
         }
-        Color c = g.getColor();
-        g.setColor(Color.red);
-        g.fillOval(x, y, WIDTH, HIGHT);
-        g.setColor(c);
+        drawBullet(g);
         move();
 
     }
-    
+
+    private void drawBullet(Graphics g) {
+        switch (dir) {
+            case DOWN:
+                g.drawImage(ResourceManager.bulletD, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceManager.bulletU, x, y, null);
+                break;
+            case LEFT:
+                g.drawImage(ResourceManager.bulletL, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceManager.bulletR, x, y, null);
+                break;
+        }
+    }
+
     private void move() {
         switch (dir) {
             case LEFT:
