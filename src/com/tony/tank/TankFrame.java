@@ -2,6 +2,9 @@ package com.tony.tank;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author: Tony.Chen
@@ -13,7 +16,7 @@ public class TankFrame extends Frame {
     public static final int GAME_WIDTH = 800;
     public static final int GAME_HEIGHT = 600;
     Tank myTank = new Tank(200,200,Direction.DOWN,this);
-    Bullet bullet = new Bullet(300,300,Direction.DOWN );
+    List<Bullet> bullets = new ArrayList<>();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -33,8 +36,31 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("子弹数量："+bullets.size(),10,60);
+        g.setColor(c);
+
         myTank.paint(g);
-        bullet.paint(g);
+        //foreach 会产生ConcurrentModificationException
+        //应为 AbstractList modcout ！= ArrayList iterator expectedModCount
+//        for(Bullet bullet:bullets){
+//            bullet.paint(g);
+//            if(!bullet.isLive){
+//                bullets.remove(bullet);
+//            }
+//        }
+        for (int i = 0; i < bullets.size() ; i++) {
+            bullets.get(i).paint(g);
+        }
+//        Iterator<Bullet> iter = bullets.iterator();
+//        while (iter.hasNext()){
+//            Bullet bullet = iter.next();
+//            bullet.paint(g);
+//            if(!bullet.isLive){
+//                iter.remove();
+//            }
+//        }
     }
 
     //解决双缓冲
@@ -43,12 +69,12 @@ public class TankFrame extends Frame {
     @Override
     public void update(Graphics g) {
         if (null == offScreenImage) {
-            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+            offScreenImage = this.createImage(GameModel.GAME_WIDTH, GameModel.GAME_HEIGHT);
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.fillRect(0, 0, GameModel.GAME_WIDTH, GameModel.GAME_HEIGHT);
         gOffScreen.setColor(c);
         paint(gOffScreen);
         g.drawImage(offScreenImage, 0, 0, null);

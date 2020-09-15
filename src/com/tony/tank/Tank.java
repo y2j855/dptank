@@ -22,7 +22,7 @@ public class Tank {
      */
     private TankFrame tf;
 
-    public Tank(int x, int y,Direction dir,TankFrame tf) {
+    public Tank(int x, int y, Direction dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -38,7 +38,7 @@ public class Tank {
     }
 
     private void move() {
-        if(moving) {
+        if (moving) {
             switch (dir) {
                 case LEFT:
                     x -= SPEED;
@@ -71,6 +71,7 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullet = new Bullet(x, y, dir);
+        tf.bullets.add(new Bullet(this.x, this.y, this.dir,this.tf
+        ));
     }
 }
