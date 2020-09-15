@@ -11,6 +11,8 @@ public class Tank {
     private int x, y;
     private Direction dir = Direction.DOWN;
     private static final int SPEED = 5;
+    public static final int WIDTH = ResourceManager.goodTankD.getWidth();
+    public static final int HEIGHT = ResourceManager.goodTankD.getHeight();
 
     private boolean moving = false;
 
@@ -83,16 +85,18 @@ public class Tank {
         return moving;
     }
 
+    public void fire() {
+        //把子弹移动到坦克中间发射
+        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
+        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        tf.bullets.add(new Bullet(bX, bY, dir, this.group, this.tf));
+    }
+
     public void setMoving(boolean moving) {
         this.moving = moving;
     }
 
     public void setDir(Direction dir) {
         this.dir = dir;
-    }
-
-    public void fire() {
-        tf.bullets.add(new Bullet(this.x, this.y, this.dir,this.tf
-        ));
     }
 }

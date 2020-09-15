@@ -9,7 +9,8 @@ import java.awt.*;
  */
 public class Bullet {
     private static final int SPEED = 10;
-    private static int WIDTH = 10, HIGHT = 10;
+    public static int WIDTH = ResourceManager.bulletD.getWidth();
+    public static int HEIGHT = ResourceManager.bulletD.getHeight();;
 
     private int x, y;
     private Direction dir;
@@ -17,10 +18,13 @@ public class Bullet {
     public boolean isLive = true;
     private TankFrame tf = null;
 
-    public Bullet(int x, int y, Direction dir,TankFrame tf) {
+    private Group group = Group.GOOD;
+
+    public Bullet(int x, int y, Direction dir,Group group,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
