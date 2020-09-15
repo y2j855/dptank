@@ -10,7 +10,7 @@ import java.awt.*;
 public class Tank {
     private int x, y;
     private Direction dir = Direction.DOWN;
-    private static final int SPEED = 10;
+    private static final int SPEED = 5;
 
     private boolean moving = false;
 
