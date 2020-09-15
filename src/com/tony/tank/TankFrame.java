@@ -20,6 +20,7 @@ public class TankFrame extends Frame {
     Tank myTank = new Tank(200,500,Direction.DOWN,Group.GOOD,this);
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> enemyTanks = new ArrayList<>();
+    List<Explode> explodes = new ArrayList<>();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -66,6 +67,10 @@ public class TankFrame extends Frame {
             for (int j = 0; j < enemyTanks.size(); j++) {
                 bullets.get(i).collideWith(enemyTanks.get(j));
             }
+        }
+
+        for (int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(g);
         }
 
     }

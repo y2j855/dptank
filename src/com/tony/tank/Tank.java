@@ -31,7 +31,7 @@ public class Tank {
      */
     private TankFrame tf;
 
-    public Tank(int x, int y, Direction dir, Group group,TankFrame tf) {
+    public Tank(int x, int y, Direction dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -40,7 +40,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        if(!isLive) {
+        if (!isLive) {
             tf.enemyTanks.remove(this);
         }
         drawTank(g);
@@ -87,7 +87,7 @@ public class Tank {
                     break;
             }
         }
-        if(random.nextInt(10) > 8) this.fire();
+        if (random.nextInt(10) > 8) this.fire();
     }
 
     public boolean isMoving() {
@@ -99,6 +99,11 @@ public class Tank {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         tf.bullets.add(new Bullet(bX, bY, dir, this.group, this.tf));
+    }
+
+    public void die() {
+        this.isLive = false;
+        tf.explodes.add(new Explode(this.x,this.y));
     }
 
     public void setMoving(boolean moving) {
@@ -123,10 +128,6 @@ public class Tank {
 
     public void setY(int y) {
         this.y = y;
-    }
-
-    public void die() {
-        this.isLive = false;
     }
 
     public Group getGroup() {
