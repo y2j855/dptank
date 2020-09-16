@@ -10,7 +10,8 @@ import java.awt.*;
 public class Bullet {
     private static final int SPEED = 10;
     public static int WIDTH = ResourceManager.bulletD.getWidth();
-    public static int HEIGHT = ResourceManager.bulletD.getHeight();;
+    public static int HEIGHT = ResourceManager.bulletD.getHeight();
+    ;
 
     private int x, y;
     private Direction dir;
@@ -18,18 +19,25 @@ public class Bullet {
     public boolean isLive = true;
     private TankFrame tf = null;
 
+    private Rectangle rect = new Rectangle();
+
     private Group group = Group.GOOD;
 
-    public Bullet(int x, int y, Direction dir,Group group,TankFrame tf) {
+    public Bullet(int x, int y, Direction dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
-        if(!isLive){
+        if (!isLive) {
             tf.bullets.remove(this);
         }
         drawBullet(g);
@@ -71,20 +79,24 @@ public class Bullet {
             default:
                 break;
         }
-        if (x < 0 || y < 0 || x > GameModel.GAME_WIDTH || y > GameModel.GAME_HEIGHT) isLive = false;
+
+        //update rect
+        rect.x = x;
+        rect.y = y;
+
+        if (x < 0 || y < 0 || x > GameModel.GAME_WIDTH || y > GameModel.GAME_HEIGHT) {
+            isLive = false;
+        }
     }
 
     public void collideWith(Tank tank) {
-        if(this.group == tank.getGroup()) return;
-
-        //TODO:用一个rect来记录子弹的位置，现在是每次都会创建Rectangle对象，对象创建太多了。
-        Rectangle rect = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-        Rectangle rectTank = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
-        if(rect.intersects(rectTank)){
+        if (this.group == tank.getGroup()) {
+            return;
+        }
+        if (rect.intersects(tank.rect)) {
             tank.die();
             this.die();
         }
-
     }
 
     private void die() {

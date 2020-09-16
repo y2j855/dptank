@@ -23,6 +23,8 @@ public class Tank {
 
     private Group group = Group.GOOD;
 
+    public Rectangle rect = new Rectangle();
+
     /**
      * 根据业务，之所以把画板的类的引用放到tank里边，是应为tank需要打子弹
      * 为什么不用一个返回子弹对象的方法，是因为如果只返回一个子弹对象是可以这么做的，
@@ -37,6 +39,11 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -87,12 +94,18 @@ public class Tank {
                     break;
             }
         }
+
+
         if (random.nextInt(100) > 95 && group == Group.BAD) {
             this.fire();
             randomDir();
         }
         //坦克画板的边界检测
         boundsCheck();
+
+        //update rect
+        rect.x = x;
+        rect.y = y;
     }
 
     private void boundsCheck() {
