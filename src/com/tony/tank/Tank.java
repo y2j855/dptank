@@ -87,7 +87,16 @@ public class Tank {
                     break;
             }
         }
-        if (random.nextInt(10) > 8) this.fire();
+        if (random.nextInt(100) > 95 && group == Group.BAD) {
+            this.fire();
+            randomDir();
+        }
+        //坦克画板的边界检测
+        if (x < 0 || y < 0 || x > GameModel.GAME_WIDTH || y > GameModel.GAME_HEIGHT) moving = false;
+    }
+
+    private void randomDir() {
+        this.dir = Direction.values()[random.nextInt(4)];
     }
 
     public boolean isMoving() {
@@ -103,7 +112,9 @@ public class Tank {
 
     public void die() {
         this.isLive = false;
-        tf.explodes.add(new Explode(this.x,this.y));
+        int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
+        int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+        tf.explodes.add(new Explode(eX, eY, tf));
     }
 
     public void setMoving(boolean moving) {

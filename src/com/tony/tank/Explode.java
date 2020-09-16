@@ -15,9 +15,12 @@ public class Explode{
     private int x,y;
     private int step = 0;
 
-    public Explode(int x, int y) {
+    private TankFrame tf = null;
+
+    public Explode(int x, int y,TankFrame tf) {
         this.x = x;
         this.y = y;
+        this.tf = tf;
         new Thread(() -> new Audio("audio/explode.wav").play()).start();
     }
 
@@ -27,8 +30,8 @@ public class Explode{
 
     private void drawExplode(Graphics g) {
         //TODO 要有多个Explode对象，目前只有一个对象，所以会出现一个还没有画完，另一个已经触发。
-        if (step >= ResourceManager.explodes.length) return;
         g.drawImage(ResourceManager.explodes[step++], x, y, null);
+        if (step >= ResourceManager.explodes.length) tf.explodes.remove(this);
     }
 
 
