@@ -15,15 +15,13 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
-    public static final int GAME_WIDTH = 1080;
-    public static final int GAME_HEIGHT = 960;
     Tank myTank = new Tank(200,500,Direction.DOWN,Group.GOOD,this);
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> enemyTanks = new ArrayList<>();
     List<Explode> explodes = new ArrayList<>();
 
     public TankFrame() {
-        setSize(GAME_WIDTH, GAME_HEIGHT);
+        setSize(GameModel.GAME_WIDTH, GameModel.GAME_HEIGHT);
         setResizable(false);
         setTitle("tank war");
         setVisible(true);
