@@ -9,17 +9,30 @@ import java.util.Properties;
  * Description:
  */
 public class PropertyManager {
-    static Properties props = new Properties();
-
-    static {
-        try {
-            props.load(PropertyManager.class.getClassLoader().getResourceAsStream("config"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private PropertyManager() {
     }
 
     public static Object get(String name) {
-        return props.get(name);
+        return PropertyManagerHolder.props.get(name);
+    }
+
+    /**
+     * 使用静态内部类实现懒加载功能，保证了Properties只有调用get方法时才会被jvm加载
+     * 做到了用时加载，这样节省了内存空间
+     */
+    private static class PropertyManagerHolder {
+        static Properties props = new Properties();
+
+        static {
+            try {
+                props.load(PropertyManager.class.getClassLoader().getResourceAsStream("config"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(PropertyManager.get("initTankCount"));
     }
 }
