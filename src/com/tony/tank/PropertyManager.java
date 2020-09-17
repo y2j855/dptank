@@ -12,8 +12,12 @@ public class PropertyManager {
     private PropertyManager() {
     }
 
-    public static Object get(String name) {
+    public Object get(String name) {
         return PropertyManagerHolder.props.get(name);
+    }
+
+    public static PropertyManager getInstance(){
+        return PropertyManagerHolder.proper;
     }
 
     /**
@@ -22,6 +26,7 @@ public class PropertyManager {
      */
     private static class PropertyManagerHolder {
         static Properties props = new Properties();
+        static PropertyManager proper = new PropertyManager();
 
         static {
             try {
@@ -33,6 +38,6 @@ public class PropertyManager {
     }
 
     public static void main(String[] args) {
-        System.out.println(PropertyManager.get("initTankCount"));
+        System.out.println(PropertyManager.getInstance().get("initTankCount"));
     }
 }

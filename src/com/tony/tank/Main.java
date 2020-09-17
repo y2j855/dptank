@@ -8,7 +8,7 @@ package com.tony.tank;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         TankFrame tankFrame = new TankFrame();
-        int initTankCount = Integer.parseInt((String)PropertyManager.get("initTankCount"));
+        int initTankCount = Integer.parseInt((String)PropertyManager.getInstance().get("initTankCount"));
         for (int i = 0; i < initTankCount; i++) {
             tankFrame.enemyTanks.add(new Tank(50 + i*80,200,Direction.DOWN,Group.BAD,tankFrame));
         }
