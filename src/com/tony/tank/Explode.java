@@ -31,7 +31,9 @@ public class Explode{
     private void drawExplode(Graphics g) {
         //TODO 要有多个Explode对象，目前只有一个对象，所以会出现一个还没有画完，另一个已经触发。
         g.drawImage(ResourceManager.explodes[step++], x, y, null);
-        if (step >= ResourceManager.explodes.length) tf.explodes.remove(this);
+        if (step >= ResourceManager.explodes.length){
+            tf.explodes.remove(this);
+        }
     }
 
 

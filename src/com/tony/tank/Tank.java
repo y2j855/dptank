@@ -109,10 +109,18 @@ public class Tank {
     }
 
     private void boundsCheck() {
-        if (this.x < 0) x = 0;
-        if (this.y < 30) y = 30;
-        if (this.x > GameModel.GAME_WIDTH - Tank.WIDTH) x = GameModel.GAME_WIDTH - Tank.WIDTH;
-        if (this.y > GameModel.GAME_HEIGHT - Tank.HEIGHT) y = GameModel.GAME_HEIGHT - Tank.HEIGHT;
+        if (this.x < 0) {
+            x = 0;
+        }
+        if (this.y < 30) {
+            y = 30;
+        }
+        if (this.x > GameModel.GAME_WIDTH - Tank.WIDTH) {
+            x = GameModel.GAME_WIDTH - Tank.WIDTH;
+        }
+        if (this.y > GameModel.GAME_HEIGHT - Tank.HEIGHT) {
+            y = GameModel.GAME_HEIGHT - Tank.HEIGHT;
+        }
     }
 
     private void randomDir() {
