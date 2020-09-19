@@ -1,5 +1,7 @@
 package com.tony.tank;
 
+import com.tony.tank.strategy.FireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -9,7 +11,7 @@ import java.util.Random;
  * Description:
  */
 public class Tank {
-    private int x, y;
+    public int x, y;
 
     private Direction dir = Direction.DOWN;
     private static final int SPEED = 5;
@@ -97,7 +99,7 @@ public class Tank {
 
 
         if (random.nextInt(100) > 95 && group == Group.BAD) {
-            this.fire();
+            this.fire(tf.fs);
             randomDir();
         }
         //坦克画板的边界检测
@@ -131,11 +133,8 @@ public class Tank {
         return moving;
     }
 
-    public void fire() {
-        //把子弹移动到坦克中间发射
-        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bX, bY, dir, this.group, this.tf));
+    public void fire(FireStrategy fireStrategy) {
+        fireStrategy.fire(tf,this);
     }
 
     public void die() {
@@ -151,6 +150,10 @@ public class Tank {
 
     public void setDir(Direction dir) {
         this.dir = dir;
+    }
+
+    public Direction getDir() {
+        return dir;
     }
 
     public int getX() {

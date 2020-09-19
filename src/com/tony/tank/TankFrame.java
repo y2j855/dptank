@@ -1,5 +1,9 @@
 package com.tony.tank;
 
+import com.tony.tank.strategy.DefaultFireStrategy;
+import com.tony.tank.strategy.FireStrategy;
+import com.tony.tank.strategy.FourDirectionFireStrategy;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -16,9 +20,11 @@ import java.util.List;
 public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 500, Direction.DOWN, Group.GOOD, this);
-    List<Bullet> bullets = new ArrayList<>();
+    public List<Bullet> bullets = new ArrayList<>();
     List<Tank> enemyTanks = new ArrayList<>();
     List<Explode> explodes = new ArrayList<>();
+
+    FireStrategy fs = new FourDirectionFireStrategy();
 
     public TankFrame() {
         setSize(GameModel.GAME_WIDTH, GameModel.GAME_HEIGHT);
@@ -131,7 +137,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_SPACE:
-                    myTank.fire();
+                    myTank.fire(fs);
                     break;
                 default:
                     break;
