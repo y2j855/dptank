@@ -33,7 +33,7 @@ public class Tank {
      * 但考虑到以后要返回多个子弹对象，这种方式就不灵活了。所以把画板的类放到tank里
      * 对扩展更加灵活。
      */
-    private TankFrame tf;
+    public TankFrame tf;
 
     public Tank(int x, int y, Direction dir, Group group, TankFrame tf) {
         this.x = x;
@@ -134,7 +134,7 @@ public class Tank {
     }
 
     public void fire(FireStrategy fireStrategy) {
-        fireStrategy.fire(tf,this);
+        fireStrategy.fire(this);
     }
 
     public void die() {
