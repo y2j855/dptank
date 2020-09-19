@@ -25,8 +25,8 @@ public class PropertyManager {
      * 做到了用时加载，这样节省了内存空间
      */
     private static class PropertyManagerHolder {
-        static Properties props = new Properties();
-        static PropertyManager proper = new PropertyManager();
+        private static final Properties props = new Properties();
+        private static final PropertyManager proper = new PropertyManager();
 
         static {
             try {
