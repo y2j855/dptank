@@ -5,8 +5,8 @@ bulletSpeed=10
 gameWidth=1080
 gameHeight=720
 #fireStrategy
-goodFS=com.tony.tank.strategy.TankFireFourBullets
-badFs=com.tony.tank.strategy.TankFireSingleBullet
+goodFS=com.tony.tank.strategy.FourDirectionFireStrategy
+badFs=com.tony.tank.strategy.DefaultFireStrategy
 #责任链模式
 colliders=com.tony.tank.cor.BulletTankCollider,com.mashibing.tank.cor.TankTankCollider,com.mashibing.tank.cor.BulletWallCollider,com.mashibing.tank.cor.TankWallCollider
 #wall count at initialization

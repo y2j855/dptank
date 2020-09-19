@@ -24,8 +24,6 @@ public class TankFrame extends Frame {
     List<Tank> enemyTanks = new ArrayList<>();
     List<Explode> explodes = new ArrayList<>();
 
-    FireStrategy fs = new FourDirectionFireStrategy();
-
     public TankFrame() {
         setSize(GameModel.GAME_WIDTH, GameModel.GAME_HEIGHT);
         setResizable(false);
@@ -137,7 +135,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_SPACE:
-                    myTank.fire(fs);
+                    myTank.fire();
                     break;
                 default:
                     break;

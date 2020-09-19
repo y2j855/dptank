@@ -1,6 +1,8 @@
 package com.tony.tank;
 
+import com.tony.tank.strategy.DefaultFireStrategy;
 import com.tony.tank.strategy.FireStrategy;
+import com.tony.tank.strategy.FourDirectionFireStrategy;
 
 import java.awt.*;
 import java.util.Random;
@@ -99,7 +101,7 @@ public class Tank {
 
 
         if (random.nextInt(100) > 95 && group == Group.BAD) {
-            this.fire(tf.fs);
+            this.fire();
             randomDir();
         }
         //坦克画板的边界检测
@@ -133,8 +135,16 @@ public class Tank {
         return moving;
     }
 
-    public void fire(FireStrategy fireStrategy) {
-        fireStrategy.fire(this);
+    public void fire() {
+        FireStrategy fs = new DefaultFireStrategy();
+        if(group== Group.GOOD){
+            try {
+                fs = (FireStrategy) Class.forName((String)PropertyManager.getInstance().get("goodFS")).newInstance();
+            } catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        fs.fire(this);
     }
 
     public void die() {
