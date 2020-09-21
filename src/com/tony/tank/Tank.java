@@ -1,8 +1,8 @@
 package com.tony.tank;
 
+import com.tony.tank.abstractfactory.BaseTank;
 import com.tony.tank.strategy.DefaultFireStrategy;
 import com.tony.tank.strategy.FireStrategy;
-import com.tony.tank.strategy.FourDirectionFireStrategy;
 
 import java.awt.*;
 import java.util.Random;
@@ -12,7 +12,7 @@ import java.util.Random;
  * Create Time : 2020/9/14 21:18
  * Description:
  */
-public class Tank {
+public class Tank extends BaseTank {
     public int x, y;
 
     private Direction dir = Direction.DOWN;
@@ -27,7 +27,7 @@ public class Tank {
 
     private Group group = Group.GOOD;
 
-    public Rectangle rect = new Rectangle();
+//    public Rectangle rect = new Rectangle();
 
     /**
      * 根据业务，之所以把画板的类的引用放到tank里边，是因为tank需要打子弹
@@ -35,7 +35,7 @@ public class Tank {
      * 但考虑到以后要返回多个子弹对象，这种方式就不灵活了。所以把画板的类放到tank里
      * 对扩展更加灵活。
      */
-    public TankFrame tf;
+//    public TankFrame tf;
 
     public Tank(int x, int y, Direction dir, Group group, TankFrame tf) {
         this.x = x;
@@ -50,6 +50,7 @@ public class Tank {
         rect.height = HEIGHT;
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!isLive) {
             tf.enemyTanks.remove(this);
@@ -58,7 +59,8 @@ public class Tank {
         move();
     }
 
-    private void drawTank(Graphics g) {
+    @Override
+    public void drawTank(Graphics g) {
         switch (dir) {
             case DOWN:
                 g.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankD :
@@ -137,6 +139,7 @@ public class Tank {
         return moving;
     }
 
+    @Override
     public void fire() {
         FireStrategy fs = new DefaultFireStrategy();
         if(group== Group.GOOD){
@@ -149,25 +152,30 @@ public class Tank {
         fs.fire(this);
     }
 
+    @Override
     public void die() {
         this.isLive = false;
         int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
         int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-        tf.explodes.add(new Explode(eX, eY, tf));
+        tf.explodes.add(tf.factory.createExplode(eX,eY,tf));
     }
 
+    @Override
     public void setMoving(boolean moving) {
         this.moving = moving;
     }
 
+    @Override
     public void setDir(Direction dir) {
         this.dir = dir;
     }
 
+    @Override
     public Direction getDir() {
         return dir;
     }
 
+    @Override
     public int getX() {
         return x;
     }
@@ -176,6 +184,7 @@ public class Tank {
         this.x = x;
     }
 
+    @Override
     public int getY() {
         return y;
     }
@@ -184,6 +193,7 @@ public class Tank {
         this.y = y;
     }
 
+    @Override
     public Group getGroup() {
         return group;
     }

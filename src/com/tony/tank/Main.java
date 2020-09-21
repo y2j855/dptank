@@ -10,7 +10,7 @@ public class Main {
         TankFrame tankFrame = new TankFrame();
         int initTankCount = Integer.parseInt((String)PropertyManager.getInstance().get("initTankCount"));
         for (int i = 0; i < initTankCount; i++) {
-            tankFrame.enemyTanks.add(new Tank(50 + i*80,200,Direction.DOWN,Group.BAD,tankFrame));
+            tankFrame.enemyTanks.add(tankFrame.factory.createTank(50 + i*80,200,Direction.DOWN,Group.BAD,tankFrame));
         }
 
         while (true){

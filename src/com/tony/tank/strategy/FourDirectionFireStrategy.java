@@ -1,6 +1,9 @@
 package com.tony.tank.strategy;
 
 import com.tony.tank.*;
+import com.tony.tank.abstractfactory.BaseBullet;
+import com.tony.tank.abstractfactory.BaseTank;
+import com.tony.tank.abstractfactory.rect.RectFactory;
 
 /**
  * @author: Tony.Chen
@@ -9,13 +12,13 @@ import com.tony.tank.*;
  */
 public class FourDirectionFireStrategy implements FireStrategy{
     @Override
-    public void fire(Tank tank) {
+    public void fire(BaseTank tank) {
         //把子弹移动到坦克中间发射
-        int bX = tank.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        int bX = tank.getX() + Tank.WIDTH / 2 - BaseBullet.WIDTH / 2;
+        int bY = tank.getY() + Tank.HEIGHT / 2 - BaseBullet.HEIGHT / 2;
         
         for(Direction dir : Direction.values()){
-            new Bullet(bX, bY, dir, tank.getGroup(), tank.tf);
+            tank.tf.factory.createBullet(bX,bY,dir,tank.getGroup(),tank.tf);
         }
 
         if(tank.getGroup() == Group.GOOD){

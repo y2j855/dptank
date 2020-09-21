@@ -1,5 +1,8 @@
 package com.tony.tank;
 
+import com.tony.tank.abstractfactory.BaseBullet;
+import com.tony.tank.abstractfactory.BaseTank;
+
 import java.awt.*;
 
 /**
@@ -7,17 +10,11 @@ import java.awt.*;
  * Create Time : 2020/9/15 10:07
  * Description:
  */
-public class Bullet {
-    private static final int SPEED = 10;
-    public static int WIDTH = ResourceManager.bulletD.getWidth();
-    public static int HEIGHT = ResourceManager.bulletD.getHeight();
+public class Bullet extends BaseBullet {
     ;
 
     private int x, y;
     private Direction dir;
-
-    public boolean isLive = true;
-    private TankFrame tf = null;
 
     private Rectangle rect = new Rectangle();
 
@@ -38,6 +35,7 @@ public class Bullet {
         tf.bullets.add(this);
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!isLive) {
             tf.bullets.remove(this);
@@ -47,7 +45,8 @@ public class Bullet {
 
     }
 
-    private void drawBullet(Graphics g) {
+    @Override
+    public void drawBullet(Graphics g) {
         switch (dir) {
             case DOWN:
                 g.drawImage(ResourceManager.bulletD, x, y, null);
@@ -93,7 +92,8 @@ public class Bullet {
         }
     }
 
-    public void collideWith(Tank tank) {
+    @Override
+    public void collideWith(BaseTank tank) {
         if (this.group == tank.getGroup()) {
             return;
         }
@@ -103,7 +103,8 @@ public class Bullet {
         }
     }
 
-    private void die() {
+    @Override
+    public void die() {
         this.isLive = false;
     }
 }

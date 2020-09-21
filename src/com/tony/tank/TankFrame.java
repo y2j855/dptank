@@ -1,8 +1,7 @@
 package com.tony.tank;
 
-import com.tony.tank.strategy.DefaultFireStrategy;
-import com.tony.tank.strategy.FireStrategy;
-import com.tony.tank.strategy.FourDirectionFireStrategy;
+import com.tony.tank.abstractfactory.*;
+import com.tony.tank.abstractfactory.rect.RectFactory;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -19,10 +18,12 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 500, Direction.DOWN, Group.GOOD, this);
-    public List<Bullet> bullets = new ArrayList<>();
-    List<Tank> enemyTanks = new ArrayList<>();
-    List<Explode> explodes = new ArrayList<>();
+    public AbstractFactory factory = RectFactory.getInstance();
+
+    public BaseTank myTank = factory.createTank(200, 500, Direction.DOWN, Group.GOOD, this);
+    public List<BaseBullet> bullets = new ArrayList<>();
+    public List<BaseTank> enemyTanks = new ArrayList<>();
+    public List<BaseExplode> explodes = new ArrayList<>();
 
     public TankFrame() {
         setSize(GameModel.GAME_WIDTH, GameModel.GAME_HEIGHT);
