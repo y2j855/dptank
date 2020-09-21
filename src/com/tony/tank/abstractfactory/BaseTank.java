@@ -15,8 +15,6 @@ public abstract class BaseTank {
     public Rectangle rect = new Rectangle();
     public TankFrame tf;
 
-    public abstract void drawTank(Graphics g);
-
     public abstract void fire();
 
     public abstract void paint(Graphics g);

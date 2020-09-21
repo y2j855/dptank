@@ -17,7 +17,7 @@ public class RectTank extends BaseTank {
 
     public int x, y;
 
-    private Direction dir = Direction.DOWN;
+    private Direction dir;
     private static final int SPEED = 5;
     public static final int WIDTH = ResourceManager.goodTankD.getWidth();
     public static final int HEIGHT = ResourceManager.goodTankD.getHeight();
@@ -27,7 +27,7 @@ public class RectTank extends BaseTank {
 
     private Random random = new Random();
 
-    private Group group = Group.GOOD;
+    private Group group;
 
     public RectTank(int x, int y, Direction dir, Group group, TankFrame tf) {
         this.x = x;
@@ -40,11 +40,6 @@ public class RectTank extends BaseTank {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
-    }
-
-    @Override
-    public void drawTank(Graphics g) {
-
     }
 
     @Override

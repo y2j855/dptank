@@ -59,7 +59,6 @@ public class Tank extends BaseTank {
         move();
     }
 
-    @Override
     public void drawTank(Graphics g) {
         switch (dir) {
             case DOWN:
