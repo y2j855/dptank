@@ -61,6 +61,8 @@ public class Bullet {
             case RIGHT:
                 g.drawImage(ResourceManager.bulletR, x, y, null);
                 break;
+            default:
+                break;
         }
     }
 

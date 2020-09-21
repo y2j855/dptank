@@ -76,6 +76,8 @@ public class Tank {
                 g.drawImage(this.group == Group.GOOD ? ResourceManager.goodTankR :
                         ResourceManager.badTankR, x, y, null);
                 break;
+            default:
+                break;
         }
     }
 
