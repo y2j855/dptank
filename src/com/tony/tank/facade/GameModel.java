@@ -23,6 +23,11 @@ public class GameModel {
     private static final GameModel gm = new GameModel();
 
     private GameModel(){
+        //初始化敌方坦克
+        int initTankCount = Integer.parseInt((String)PropertyManager.getInstance().get("initTankCount"));
+        for (int i = 0; i < initTankCount; i++) {
+            enemyTanks.add(new Tank(50 + i*80,200,Direction.DOWN,Group.BAD,this));
+        }
     }
 
     public static GameModel getInstance(){
