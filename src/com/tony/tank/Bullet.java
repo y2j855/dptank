@@ -1,6 +1,7 @@
 package com.tony.tank;
 
 import com.tony.tank.facade.GameModel;
+import com.tony.tank.facade.GameObject;
 
 import java.awt.*;
 
@@ -9,21 +10,21 @@ import java.awt.*;
  * Create Time : 2020/9/15 10:07
  * Description:
  */
-public class Bullet {
-    private static final int SPEED = 10;
-    public static int WIDTH = ResourceManager.bulletD.getWidth();
-    public static int HEIGHT = ResourceManager.bulletD.getHeight();
-    ;
+public class Bullet extends GameObject {
 
-    private int x, y;
+    private static final int SPEED = 10;
+
+    public static final int WIDTH = ResourceManager.bulletD.getWidth();
+
+    public static final int HEIGHT = ResourceManager.bulletD.getHeight();
+
     private Direction dir;
 
     public boolean isLive = true;
-    private GameModel gm = null;
 
-    private Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
 
-    private Group group = Group.GOOD;
+    public Group group;
 
     public Bullet(int x, int y, Direction dir, Group group, GameModel gm) {
         this.x = x;
@@ -37,12 +38,13 @@ public class Bullet {
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        gm.bullets.add(this);
+        gm.add(this);
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!isLive) {
-            gm.bullets.remove(this);
+            gm.remove(this);
         }
         drawBullet(g);
         move();
@@ -95,17 +97,7 @@ public class Bullet {
         }
     }
 
-    public void collideWith(Tank tank) {
-        if (this.group == tank.getGroup()) {
-            return;
-        }
-        if (rect.intersects(tank.rect)) {
-            tank.die();
-            this.die();
-        }
-    }
-
-    private void die() {
+    public void die() {
         this.isLive = false;
     }
 }

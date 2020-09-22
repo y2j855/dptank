@@ -1,6 +1,8 @@
 package com.tony.tank;
 
+import com.tony.tank.chain.Collider;
 import com.tony.tank.facade.GameModel;
+import com.tony.tank.facade.GameObject;
 import com.tony.tank.strategy.DefaultFireStrategy;
 import com.tony.tank.strategy.FireStrategy;
 
@@ -12,30 +14,25 @@ import java.util.Random;
  * Create Time : 2020/9/14 21:18
  * Description:
  */
-public class Tank {
-    public int x, y;
+public class Tank extends GameObject{
 
-    private Direction dir = Direction.DOWN;
-    private static final int SPEED = 5;
     public static final int WIDTH = ResourceManager.goodTankD.getWidth();
+
     public static final int HEIGHT = ResourceManager.goodTankD.getHeight();
 
+    private Direction dir;
+
+    private static final int SPEED = 5;
+
     private boolean moving = true;
+
     private boolean isLive = true;
 
     private Random random = new Random();
 
-    private Group group = Group.GOOD;
+    private Group group;
 
     public Rectangle rect = new Rectangle();
-
-    /**
-     * 根据业务，之所以把画板的类的引用放到tank里边，是因为tank需要打子弹
-     * 为什么不用一个返回子弹对象的方法，是因为如果只返回一个子弹对象是可以这么做的，
-     * 但考虑到以后要返回多个子弹对象，这种方式就不灵活了。所以把画板的类放到tank里
-     * 对扩展更加灵活。
-     */
-    public GameModel gm;
 
     public Tank(int x, int y, Direction dir, Group group, GameModel gm) {
         this.x = x;
@@ -50,9 +47,10 @@ public class Tank {
         rect.height = HEIGHT;
     }
 
+    @Override
     public void paint(Graphics g) {
         if (!isLive) {
-            gm.enemyTanks.remove(this);
+            gm.remove(this);
         }
         drawTank(g);
         move();
@@ -133,10 +131,6 @@ public class Tank {
         this.dir = Direction.values()[random.nextInt(4)];
     }
 
-    public boolean isMoving() {
-        return moving;
-    }
-
     public void fire() {
         FireStrategy fs = new DefaultFireStrategy();
         if(group== Group.GOOD){
@@ -153,7 +147,7 @@ public class Tank {
         this.isLive = false;
         int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
         int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-        gm.explodes.add(new Explode(eX, eY, gm));
+        gm.add(new Explode(eX, eY, gm));
     }
 
     public void setMoving(boolean moving) {
@@ -172,23 +166,15 @@ public class Tank {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public Group getGroup() {
         return group;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void stop(){
+        moving = false;
     }
 }

@@ -1,6 +1,7 @@
 package com.tony.tank;
 
 import com.tony.tank.facade.GameModel;
+import com.tony.tank.facade.GameObject;
 
 import java.awt.*;
 
@@ -10,14 +11,13 @@ import java.awt.*;
  * @description: 爆炸类
  */
 
-public class Explode{
+public class Explode extends GameObject {
+
     public static final int WIDTH = ResourceManager.explodes[0].getWidth();
+
     public static final int HEIGHT = ResourceManager.explodes[0].getHeight();
 
-    private int x,y;
     private int step = 0;
-
-    private GameModel gm;
 
     public Explode(int x, int y, GameModel gm) {
         this.x = x;
@@ -26,6 +26,7 @@ public class Explode{
         new Thread(() -> new Audio("audio/explode.wav").play()).start();
     }
 
+    @Override
     public void paint(Graphics g) {
         drawExplode(g);
     }
@@ -34,7 +35,7 @@ public class Explode{
         //TODO 要有多个Explode对象，目前只有一个对象，所以会出现一个还没有画完，另一个已经触发。
         g.drawImage(ResourceManager.explodes[step++], x, y, null);
         if (step >= ResourceManager.explodes.length){
-            gm.explodes.remove(this);
+            gm.remove(this);
         }
     }
 
