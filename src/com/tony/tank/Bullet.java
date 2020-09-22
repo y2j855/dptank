@@ -1,5 +1,7 @@
 package com.tony.tank;
 
+import com.tony.tank.facade.GameModel;
+
 import java.awt.*;
 
 /**
@@ -17,30 +19,30 @@ public class Bullet {
     private Direction dir;
 
     public boolean isLive = true;
-    private TankFrame tf = null;
+    private GameModel gm = null;
 
     private Rectangle rect = new Rectangle();
 
     private Group group = Group.GOOD;
 
-    public Bullet(int x, int y, Direction dir, Group group, TankFrame tf) {
+    public Bullet(int x, int y, Direction dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        tf.bullets.add(this);
+        gm.bullets.add(this);
     }
 
     public void paint(Graphics g) {
         if (!isLive) {
-            tf.bullets.remove(this);
+            gm.bullets.remove(this);
         }
         drawBullet(g);
         move();

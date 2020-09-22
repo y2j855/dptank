@@ -1,5 +1,6 @@
 package com.tony.tank;
 
+import com.tony.tank.facade.GameModel;
 import com.tony.tank.strategy.DefaultFireStrategy;
 import com.tony.tank.strategy.FireStrategy;
 import com.tony.tank.strategy.FourDirectionFireStrategy;
@@ -19,13 +20,11 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 500, Direction.DOWN, Group.GOOD, this);
-    public List<Bullet> bullets = new ArrayList<>();
-    List<Tank> enemyTanks = new ArrayList<>();
-    List<Explode> explodes = new ArrayList<>();
+    GameModel gm = GameModel.getInstance();
+
 
     public TankFrame() {
-        setSize(GameModel.GAME_WIDTH, GameModel.GAME_HEIGHT);
+        setSize(com.tony.tank.facade.GameModel.GAME_WIDTH, com.tony.tank.facade.GameModel.GAME_HEIGHT);
         setResizable(false);
         setTitle("tank war");
         setVisible(true);
@@ -42,33 +41,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹数量：" + bullets.size(), 10, 60);
-        g.drawString("敌军坦克数量：" + enemyTanks.size(), 100, 60);
-        g.drawString("爆炸数量：" + explodes.size(), 200, 60);
-        g.setColor(c);
-
-        myTank.paint(g);
-
-        for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).paint(g);
-        }
-
-        for (int i = 0; i < enemyTanks.size(); i++) {
-            enemyTanks.get(i).paint(g);
-        }
-
-        for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < enemyTanks.size(); j++) {
-                bullets.get(i).collideWith(enemyTanks.get(j));
-            }
-        }
-
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
-        }
-
+        gm.paint(g);
     }
 
     //解决双缓冲
@@ -77,12 +50,12 @@ public class TankFrame extends Frame {
     @Override
     public void update(Graphics g) {
         if (null == offScreenImage) {
-            offScreenImage = this.createImage(GameModel.GAME_WIDTH, GameModel.GAME_HEIGHT);
+            offScreenImage = this.createImage(com.tony.tank.facade.GameModel.GAME_WIDTH, com.tony.tank.facade.GameModel.GAME_HEIGHT);
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0, 0, GameModel.GAME_WIDTH, GameModel.GAME_HEIGHT);
+        gOffScreen.fillRect(0, 0, com.tony.tank.facade.GameModel.GAME_WIDTH, com.tony.tank.facade.GameModel.GAME_HEIGHT);
         gOffScreen.setColor(c);
         paint(gOffScreen);
         g.drawImage(offScreenImage, 0, 0, null);
@@ -135,7 +108,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_SPACE:
-                    myTank.fire();
+                    gm.getMyTank().fire();
                     break;
                 default:
                     break;
@@ -145,21 +118,21 @@ public class TankFrame extends Frame {
 
         private void setMainTankDir() {
             if (!bL && !bR && !bU && !bD) {
-                myTank.setMoving(false);
+                gm.getMyTank().setMoving(false);
             } else {
-                myTank.setMoving(true);
+                gm.getMyTank().setMoving(true);
             }
             if (bL) {
-                myTank.setDir(Direction.LEFT);
+                gm.getMyTank().setDir(Direction.LEFT);
             }
             if (bU) {
-                myTank.setDir(Direction.UP);
+                gm.getMyTank().setDir(Direction.UP);
             }
             if (bR) {
-                myTank.setDir(Direction.RIGHT);
+                gm.getMyTank().setDir(Direction.RIGHT);
             }
             if (bD) {
-                myTank.setDir(Direction.DOWN);
+                gm.getMyTank().setDir(Direction.DOWN);
             }
         }
     }

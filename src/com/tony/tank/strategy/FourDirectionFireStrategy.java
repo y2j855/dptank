@@ -15,7 +15,7 @@ public class FourDirectionFireStrategy implements FireStrategy{
         int bY = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         
         for(Direction dir : Direction.values()){
-            new Bullet(bX, bY, dir, tank.getGroup(), tank.tf);
+            new Bullet(bX, bY, dir, tank.getGroup(), tank.gm);
         }
 
         if(tank.getGroup() == Group.GOOD){

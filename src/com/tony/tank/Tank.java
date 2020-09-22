@@ -1,8 +1,8 @@
 package com.tony.tank;
 
+import com.tony.tank.facade.GameModel;
 import com.tony.tank.strategy.DefaultFireStrategy;
 import com.tony.tank.strategy.FireStrategy;
-import com.tony.tank.strategy.FourDirectionFireStrategy;
 
 import java.awt.*;
 import java.util.Random;
@@ -35,14 +35,14 @@ public class Tank {
      * 但考虑到以后要返回多个子弹对象，这种方式就不灵活了。所以把画板的类放到tank里
      * 对扩展更加灵活。
      */
-    public TankFrame tf;
+    public GameModel gm;
 
-    public Tank(int x, int y, Direction dir, Group group, TankFrame tf) {
+    public Tank(int x, int y, Direction dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
         rect.x = this.x;
         rect.y = this.y;
@@ -52,7 +52,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!isLive) {
-            tf.enemyTanks.remove(this);
+            gm.enemyTanks.remove(this);
         }
         drawTank(g);
         move();
@@ -153,7 +153,7 @@ public class Tank {
         this.isLive = false;
         int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
         int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-        tf.explodes.add(new Explode(eX, eY, tf));
+        gm.explodes.add(new Explode(eX, eY, gm));
     }
 
     public void setMoving(boolean moving) {
