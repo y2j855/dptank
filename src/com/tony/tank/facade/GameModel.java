@@ -1,10 +1,11 @@
 package com.tony.tank.facade;
 
-import com.tony.tank.*;
-import com.tony.tank.chain.BulletTankCollider;
+import com.tony.tank.Direction;
+import com.tony.tank.Group;
+import com.tony.tank.PropertyManager;
+import com.tony.tank.Tank;
 import com.tony.tank.chain.Collider;
 import com.tony.tank.chain.ColliderChain;
-import com.tony.tank.chain.TankTankCollider;
 
 import java.awt.*;
 import java.util.ArrayList;
