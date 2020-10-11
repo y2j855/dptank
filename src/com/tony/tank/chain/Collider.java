@@ -11,7 +11,7 @@ public interface Collider {
     /**
      * @param o1
      * @param o2
-     * @return  true:执行下一个collider false:不执行一下个collider
+     * @return  true:执行下一个collider false:不执行下一个collider
      */
     boolean collide(GameObject o1, GameObject o2);
 }

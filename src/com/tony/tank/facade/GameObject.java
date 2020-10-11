@@ -5,8 +5,7 @@ import java.awt.*;
 /**
  * @author: Tony.Chen
  * Create Time : 2020/9/22 15:55
- * Description:
- * mediator(调停者/中介者模式)
+ * Description:所有画板上游戏对象的超类
  */
 public abstract class GameObject {
 
