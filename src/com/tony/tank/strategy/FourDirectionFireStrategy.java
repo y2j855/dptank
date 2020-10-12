@@ -1,6 +1,7 @@
 package com.tony.tank.strategy;
 
 import com.tony.tank.*;
+import com.tony.tank.facade.GameModel;
 
 /**
  * @author: Tony.Chen
@@ -15,7 +16,7 @@ public class FourDirectionFireStrategy implements FireStrategy{
         int bY = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         
         for(Direction dir : Direction.values()){
-            new Bullet(bX, bY, dir, tank.getGroup(), tank.gm);
+            new Bullet(bX, bY, dir, tank.getGroup());
         }
 
         if(tank.getGroup() == Group.GOOD){

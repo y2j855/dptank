@@ -26,25 +26,24 @@ public class Bullet extends GameObject {
 
     public Group group;
 
-    public Bullet(int x, int y, Direction dir, Group group, GameModel gm) {
+    public Bullet(int x, int y, Direction dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
 
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        gm.add(this);
+        GameModel.getInstance().add(this);
     }
 
     @Override
     public void paint(Graphics g) {
         if (!isLive) {
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
         drawBullet(g);
         move();

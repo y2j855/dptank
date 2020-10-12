@@ -11,6 +11,7 @@ import com.tony.tank.facade.GameObject;
  */
 public class BulletTankCollider implements Collider {
 
+
     @Override
     public boolean collide(GameObject o1, GameObject o2) {
         if (o1 instanceof Bullet && o2 instanceof Tank) {

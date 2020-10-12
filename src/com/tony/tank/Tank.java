@@ -1,6 +1,5 @@
 package com.tony.tank;
 
-import com.tony.tank.chain.Collider;
 import com.tony.tank.facade.GameModel;
 import com.tony.tank.facade.GameObject;
 import com.tony.tank.strategy.DefaultFireStrategy;
@@ -34,23 +33,24 @@ public class Tank extends GameObject{
 
     public Rectangle rect = new Rectangle();
 
-    public Tank(int x, int y, Direction dir, Group group, GameModel gm) {
+    public Tank(int x, int y, Direction dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
 
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+
+        GameModel.getInstance().add(this);
     }
 
     @Override
     public void paint(Graphics g) {
         if (!isLive) {
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
         drawTank(g);
         move();
@@ -147,7 +147,7 @@ public class Tank extends GameObject{
         this.isLive = false;
         int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
         int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-        gm.add(new Explode(eX, eY, gm));
+        GameModel.getInstance().add(new Explode(eX, eY));
     }
 
     public void setMoving(boolean moving) {

@@ -8,6 +8,6 @@ gameHeight=720
 goodFS=com.tony.tank.strategy.FourDirectionFireStrategy
 badFs=com.tony.tank.strategy.DefaultFireStrategy
 #责任链模式
-colliders=com.tony.tank.chain.BulletTankCollider,com.tony.tank.chain.TankTankCollider
+colliders=com.tony.tank.chain.BulletTankCollider,com.tony.tank.chain.TankTankCollider,com.tony.tank.chain.BulletWallCollider,com.tony.tank.chain.TankWallCollider
 #wall count at initialization
 initWallCount=5

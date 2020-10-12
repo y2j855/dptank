@@ -1,9 +1,6 @@
 package com.tony.tank.facade;
 
-import com.tony.tank.Direction;
-import com.tony.tank.Group;
-import com.tony.tank.PropertyManager;
-import com.tony.tank.Tank;
+import com.tony.tank.*;
 import com.tony.tank.chain.Collider;
 import com.tony.tank.chain.ColliderChain;
 
@@ -17,28 +14,49 @@ import java.util.List;
  * Description:
  * Facade(门面/外观模式) 对 TankFrame
  * mediator(调停者/中介者模式) 对 Tank,Bullet,Explode
+ * singleton 对外开放add，remove方法。让代码更加简洁
  */
 public class GameModel {
     public static final int GAME_WIDTH = 1080;
+
     public static final int GAME_HEIGHT = 800;
 
-    public Tank myTank = new Tank(200, 500, Direction.DOWN, Group.GOOD, this);
+    private static final GameModel INSTANCE = new GameModel();
+
+    static {
+        INSTANCE.initData();
+    }
+
+    /**
+     * 如果在此处new这个对象，会报空指针，原因是因为INSTANCE还没有初始化好，
+     * new Tank就会调用此初始化
+     */
+    private Tank myTank;
 
     private List<GameObject> objects = new ArrayList<>();
 
-    private static final GameModel gm = new GameModel();
 
     Collider chain = new ColliderChain();
 
-    private GameModel(){
-        int initTankCount = Integer.parseInt((String)PropertyManager.getInstance().get("initTankCount"));
+
+    private GameModel(){}
+
+    private void initData() {
+        myTank = new Tank(200, 500, Direction.DOWN, Group.GOOD);
+
+        int initTankCount = Integer.parseInt((String) PropertyManager.getInstance().get("initTankCount"));
         for (int i = 0; i < initTankCount; i++) {
-            add(new Tank(50 + i*80,200,Direction.DOWN,Group.BAD,this));
+            new Tank(50 + i*80,200, Direction.DOWN, Group.BAD);
+        }
+
+        int initWallCount = Integer.parseInt((String)PropertyManager.getInstance().get("initWallCount"));
+        for (int i = 0; i < initWallCount; i++) {
+            new Wall(120*(i+1),120*(i+1));
         }
     }
 
     public static GameModel getInstance(){
-        return gm;
+        return INSTANCE;
     }
 
     /**
