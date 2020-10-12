@@ -39,42 +39,48 @@ public class GameModel {
     Collider chain = new ColliderChain();
 
 
-    private GameModel(){}
+    private GameModel() {
+    }
 
     private void initData() {
         myTank = new Tank(200, 500, Direction.DOWN, Group.GOOD);
 
         int initTankCount = Integer.parseInt((String) PropertyManager.getInstance().get("initTankCount"));
         for (int i = 0; i < initTankCount; i++) {
-            new Tank(50 + i*80,200, Direction.DOWN, Group.BAD);
+            new Tank(50 + i * 80, 200, Direction.DOWN, Group.BAD);
         }
 
-        int initWallCount = Integer.parseInt((String)PropertyManager.getInstance().get("initWallCount"));
-        for (int i = 0; i < initWallCount; i++) {
-            new Wall(120*(i+1),120*(i+1));
-        }
+//        int initWallCount = Integer.parseInt((String)PropertyManager.getInstance().get("initWallCount"));
+//        for (int i = 0; i < initWallCount; i++) {
+//            new Wall(120*(i+1),120*(i+1));
+//        }
+        // 初始化墙
+        new Wall(150, 150, 200, 50);
+        new Wall(550, 150, 200, 50);
+        new Wall(300, 300, 50, 200);
+        new Wall(550, 300, 50, 200);
     }
 
-    public static GameModel getInstance(){
+    public static GameModel getInstance() {
         return INSTANCE;
     }
 
     /**
      * @return 获取我的坦克
      */
-    public Tank getMyTank(){
+    public Tank getMyTank() {
         return myTank;
     }
 
-    public void add(GameObject object){
+    public void add(GameObject object) {
         objects.add(object);
     }
 
-    public void remove(GameObject object){
+    public void remove(GameObject object) {
         objects.remove(object);
     }
 
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.WHITE);
 //        g.drawString("子弹数量：" + bullets.size(), 10, 60);
@@ -94,10 +100,10 @@ public class GameModel {
 //        }
 
         for (int i = 0; i < objects.size(); i++) {
-            for (int j = i+1; j < objects.size(); j++) {
+            for (int j = i + 1; j < objects.size(); j++) {
                 GameObject object1 = objects.get(i);
                 GameObject object2 = objects.get(j);
-                chain.collide(object1,object2);
+                chain.collide(object1, object2);
             }
         }
 

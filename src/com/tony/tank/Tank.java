@@ -33,6 +33,8 @@ public class Tank extends GameObject{
 
     public Rectangle rect = new Rectangle();
 
+    private int oldX,oldY;
+
     public Tank(int x, int y, Direction dir, Group group) {
         this.x = x;
         this.y = y;
@@ -79,7 +81,16 @@ public class Tank extends GameObject{
         }
     }
 
+    public void back(){
+        x = oldX;
+        y = oldY;
+    }
+
     private void move() {
+        //记录移动之前的位置
+        oldX = x;
+        oldY = y;
+
         if (moving) {
             switch (dir) {
                 case LEFT:
