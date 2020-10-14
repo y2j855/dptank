@@ -11,6 +11,10 @@ public abstract class GameObject {
 
     public int x,y;
 
+    public int WIDTH;
+
+    public int HEIGHT;
+
     public abstract void paint(Graphics g);
 
 }

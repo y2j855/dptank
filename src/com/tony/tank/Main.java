@@ -1,7 +1,5 @@
 package com.tony.tank;
 
-import com.tony.tank.facade.GameModel;
-
 /**
  * @author: Tony.Chen
  * Create Time : 2020/9/14 15:46
