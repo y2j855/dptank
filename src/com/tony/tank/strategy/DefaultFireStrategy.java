@@ -22,12 +22,12 @@ public class DefaultFireStrategy implements FireStrategy{
         int bY = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
 
         //Bug? new Bullet把自己加了一遍 只是为了明白装饰器模式的用法，现实很少用
-		GameModel.getInstance().add(
-				new RectDecorator(
-						new TailDecorator(
-						new Bullet(bX, bY, tank.getDir(), tank.getGroup()))));
+//		GameModel.getInstance().add(
+//				new RectDecorator(
+//						new TailDecorator(
+//						new Bullet(bX, bY, tank.getDir(), tank.getGroup()))));
 
-//        new Bullet(bX, bY, tank.getDir(), tank.getGroup());
+        new Bullet(bX, bY, tank.getDir(), tank.getGroup());
 
         if(tank.getGroup() == Group.GOOD){
             new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
