@@ -92,13 +92,13 @@ public class GameModel {
         for (int i = 0; i < objects.size(); i++) {
             objects.get(i).paint(g);
         }
-        //修改以前边界测试实现，引出责任链模式(Chain of Responsibility pattern)
 //        for (int i = 0; i < bullets.size(); i++) {
 //            for (int j = 0; j < enemyTanks.size(); j++) {
 //                ((Bullet)bullets.get(i)).collideWith((Tank) enemyTanks.get(j));
 //            }
 //        }
 
+        //修改以前边界测试实现，引出责任链模式(Chain of Responsibility pattern)
         for (int i = 0; i < objects.size(); i++) {
             for (int j = i + 1; j < objects.size(); j++) {
                 GameObject object1 = objects.get(i);

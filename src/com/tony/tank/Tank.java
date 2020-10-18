@@ -2,10 +2,16 @@ package com.tony.tank;
 
 import com.tony.tank.facade.GameModel;
 import com.tony.tank.facade.GameObject;
+import com.tony.tank.observer.TankFireEvent;
+import com.tony.tank.observer.TankFireHandler;
+import com.tony.tank.observer.TankFireObserver;
 import com.tony.tank.strategy.DefaultFireStrategy;
 import com.tony.tank.strategy.FireStrategy;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -159,6 +165,16 @@ public class Tank extends GameObject{
         int eX = this.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
         int eY = this.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
         GameModel.getInstance().add(new Explode(eX, eY));
+    }
+
+    //添加观察者模式，tank为被观察者或者叫事件源
+    private List<TankFireObserver> fireObservers = Arrays.asList(new TankFireHandler());
+
+    public void handlerFireKey(){
+        TankFireEvent evnet = new TankFireEvent(this);
+        for (TankFireObserver o: fireObservers) {
+            o.actionOnFire(evnet);
+        }
     }
 
     public void setMoving(boolean moving) {
