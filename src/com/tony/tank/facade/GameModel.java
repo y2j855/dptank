@@ -113,6 +113,7 @@ public class GameModel {
     /**
      * memento模式
      * 添加gamemodel序列化
+     * 序列化与反序列化要注意顺序要保证一致
      */
     public void save() {
         /**
