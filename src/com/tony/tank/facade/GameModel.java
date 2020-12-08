@@ -5,6 +5,7 @@ import com.tony.tank.chain.Collider;
 import com.tony.tank.chain.ColliderChain;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,5 +110,55 @@ public class GameModel {
 
     }
 
+    /**
+     * memento模式
+     * 添加gamemodel序列化
+     */
+    public void save() {
+        /**
+         * TODO 绝对路径 相对路径问题
+         * 如果写成相对路径会报空指针，需要代码创建文件，如果写绝对路径就不会出现这个问题
+         */
+        File file = new File("/Users/chenhao/work/github/dptank/src/file/tank.data");
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream(file));
+            oos.writeObject(myTank);
+            oos.writeObject(objects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(oos != null){
+                try {
+                    oos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
+    /**
+     * memento模式
+     * 添加gamemodel反序列化
+     */
+    public void load(){
+        File file = new File("/Users/chenhao/work/github/dptank/src/file/tank.data");
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(new FileInputStream(file));
+            myTank = (Tank) ois.readObject();
+            objects = (List<GameObject>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }finally {
+            if(ois !=null){
+                try {
+                    ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
